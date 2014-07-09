@@ -5,21 +5,18 @@
   .globalize-errors
     = form.errors_for(field)
   %ul.nav.nav-tabs{ :style => 'margin-top:5px' }
-    - field.available_locales.each_with_index do |locale, index|
-      - if locale != field.current_locale
-        - klass = "localized-pane-#{locale}-#{key}"
-        %li{ class: ( 'active' if index == 0 ) }
-          %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
-      - else
-        - klass = "localized-pane-#{locale}-#{key}"
-        %li{ style: "display:none" }
-          %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
+    - locales_without_current = []
+    - field.available_locales.each { |locale| locales_without_current.push(locale) if locale != field.current_locale }
+    - locales_without_current.each_with_index do |locale, index|
+      - klass = "localized-pane-#{locale}-#{key}"
+      %li{ class: ( 'active' if index == 0 ) }
+        %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
+
 .tab-content
-  - field.available_locales.each do |locale|
+  - locales_without_current.each_with_index do |locale, index|
     - klass = "localized-pane-#{locale}-#{key}"
     = form.fields_for field.name, field.translations[locale], wrapper: false do |nested_form|
-      - if locale != field.current_locale
-        .fields.tab-pane{ class: "#{klass} #{'active' if index == 0}" }
-          = nested_form.generate({:action => :nested, :model_config => field.associated_model_config, :nested_in => field.name })
+      .fields.tab-pane{ class: "#{klass} #{'active' if index == 0}" }
+        = nested_form.generate({:action => :nested, :model_config => field.associated_model_config, :nested_in => field.name })
 .globalize-help
   = form.help_for(field)
