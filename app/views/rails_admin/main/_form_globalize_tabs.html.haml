@@ -12,7 +12,7 @@
           %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
       - else
         - klass = "localized-pane-#{locale}-#{key}"
-        %li{ style="display:none" }
+        %li{ style: "display:none" }
           %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
 .tab-content
   - field.available_locales.each do |locale|
