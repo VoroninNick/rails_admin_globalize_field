@@ -5,10 +5,15 @@
   .globalize-errors
     = form.errors_for(field)
   %ul.nav.nav-tabs{ :style => 'margin-top:5px' }
-    - field.available_locales.each do |locale|
-      - klass = "localized-pane-#{locale}-#{key}"
-      %li{ class: ( 'active' if locale == field.current_locale ) }
-        %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
+    - field.available_locales.each_with_index do |locale, index|
+      - if locale != field.current_locale
+        - klass = "localized-pane-#{locale}-#{key}"
+        %li{ class: ( 'active' if index == 0 ) }
+          %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
+      - else
+        - klass = "localized-pane-#{locale}-#{key}"
+        %li{ style="display:none" }
+          %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}:first"} }= locale
 .tab-content
   - field.available_locales.each do |locale|
     - klass = "localized-pane-#{locale}-#{key}"
