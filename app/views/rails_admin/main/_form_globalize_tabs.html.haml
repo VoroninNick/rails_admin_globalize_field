@@ -4,13 +4,13 @@
 .controls
   .globalize-errors
     = form.errors_for(field)
-  %ul.nav.-tabs{ :style => 'margin-top:5px' }
+  %ul.nav.nav-tabs{ :style => 'margin-top:5px' }
     - locales_without_current = []
     - field.available_locales.each { |locale| locales_without_current.push(locale) if locale != field.current_locale }
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ) }
-        %a{ href: "#", data: { toggle: "tab" } }= locale
+        %a{ href: "#", data: { toggle: "tab"} }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
