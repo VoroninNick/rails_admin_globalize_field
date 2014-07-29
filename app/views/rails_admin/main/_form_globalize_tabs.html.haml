@@ -1,6 +1,10 @@
 - field.translations(true) # fetch translations and memoize them
 - key = field.abstract_model.model_name.downcase
 
+- key 
+
+
+
 .controls
   .globalize-errors
     = form.errors_for(field)
@@ -13,7 +17,7 @@
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ) }
-        %a{ href: "#", data: { toggle: "",  target: ".#{klass}-#{random_numbers[index].to_s}:first"} }= locale
+        %a{ href: "#", data: { toggle: "globalize-tab",  target: ".#{klass}-#{random_numbers[index].to_s}:first"} }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
@@ -23,3 +27,19 @@
         = nested_form.generate({:action => :nested, :model_config => field.associated_model_config, :nested_in => field.name })
 .globalize-help
   = form.help_for(field)
+
+
+%script{ type: 'text/javascript' }
+  jQuery("[data-toggle=globalize-tab]").on('click', function(){
+    var $tab = $(this)
+    var $ul = $tab.parent()
+    $ul.children().removeClass('active')
+    $tab.addClass('active')
+
+
+    var $target_content_tab = $($tab.attr('data-target'))
+    var $tab_content_container = $target_content_tab.parent()
+    $tab_content_container.children().removeClass('active')
+    $target_content_tab.addClass('active')
+  })
+  
