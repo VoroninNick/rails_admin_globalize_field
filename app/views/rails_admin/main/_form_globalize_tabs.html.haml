@@ -6,17 +6,20 @@
     = form.errors_for(field)
   %ul.nav.nav-tabs{ :style => 'margin-top:5px' }
     - locales_without_current = []
+    - random_numbers = []
     - field.available_locales.each { |locale| locales_without_current.push(locale) if locale != field.current_locale }
+    - locales_without_current.count.times do
+      - random_numbers.push( rand(10000) )
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ) }
-        %a{ href: "#", data: { toggle: "tab"} }= locale
+        %a{ href: "#", data: { toggle: "tab",  target: ".#{klass}-#{random_numbers[index].to_s}:first"} }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
     - klass = "localized-pane-#{locale}-#{key}"
     = form.fields_for field.name, field.translations[locale], wrapper: false do |nested_form|
-      .fields.tab-pane{ class: "#{klass} #{'active' if index == 0}" }
+      .fields.tab-pane{ class: "#{klass}-#{random_numbers[index].to_s} #{'active' if index == 0}" }
         = nested_form.generate({:action => :nested, :model_config => field.associated_model_config, :nested_in => field.name })
 .globalize-help
   = form.help_for(field)
