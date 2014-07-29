@@ -17,20 +17,20 @@
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ) }
-        %a{ href: "#", data: { toggle: "globalize-tab",  target: ".#{klass}-#{random_numbers[index].to_s}:first"} }= locale
+        %a{ href: "#", data: { toggle: "tab",  target: ".globalize-tab-#{random_numbers[index].to_s}:first"} }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
     - klass = "localized-pane-#{locale}-#{key}"
     = form.fields_for field.name, field.translations[locale], wrapper: false do |nested_form|
-      .fields.tab-pane{ class: "#{klass}-#{random_numbers[index].to_s} #{'active' if index == 0}" }
+      .fields.tab-pane{ class: "globalize-tab-#{random_numbers[index].to_s} #{'active' if index == 0}" }
         = nested_form.generate({:action => :nested, :model_config => field.associated_model_config, :nested_in => field.name })
 .globalize-help
   = form.help_for(field)
 
 
 :javascript
-  jQuery("[data-toggle=globalize-tab]").on('click', function(event){
+  /*jQuery("[data-toggle=globalize-tab]").on('click', function(event){
     event.preventDefault()
     var $tab_a = $(this)
     var $tab = $tab_a.parent()
@@ -43,5 +43,5 @@
     var $tab_content_container = $target_content_tab.parent()
     $tab_content_container.children().removeClass('active')
     $target_content_tab.addClass('active')
-  })
+  })*/
   
