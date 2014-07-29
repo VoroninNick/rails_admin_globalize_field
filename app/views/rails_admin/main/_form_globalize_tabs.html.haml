@@ -30,7 +30,8 @@
 
 
 :javascript
-  jQuery("[data-toggle=globalize-tab]").on('click', function(){
+  jQuery("[data-toggle=globalize-tab]").on('click', function(event){
+    event.preventDefault()
     var $tab = $(this)
     var $ul = $tab.parent()
     $ul.children().removeClass('active')
