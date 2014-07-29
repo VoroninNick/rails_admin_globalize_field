@@ -10,7 +10,7 @@
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ) }
-        %a{ href: "#", data: { toggle: "tab" }= locale
+        %a{ href: "#", data: { toggle: "tab" } }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
