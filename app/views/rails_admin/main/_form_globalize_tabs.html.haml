@@ -7,7 +7,7 @@
   %ul.nav.nav-tabs{ :style => 'margin-top:5px' }
     - locales_without_current = []
     - random_numbers = []
-    - field.available_locales.each { |locale| locales_without_current.push(locale) if locale != field.current_locale }
+    - field.available_locales.each { |locale| locales_without_current.push(locale)  }
     - locales_without_current.count.times do
       - random_numbers.push( rand(10000) )
     - locales_without_current.each_with_index do |locale, index|
