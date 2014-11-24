@@ -13,7 +13,7 @@
     - locales_without_current.each_with_index do |locale, index|
       - klass = "localized-pane-#{locale}-#{key}"
       %li{ class: ( 'active' if index == 0 ), data: { locale: locale } }
-        %a{ href: "#", data: { toggle: "tab",  target: ".globalize-tab-#{random_numbers[index].to_s}", locale: "#{locale}" }= locale
+        %a{ href: "#", data: { toggle: "tab",  target: ".globalize-tab-#{random_numbers[index].to_s}", locale: "#{locale}" } }= locale
 
 .tab-content
   - locales_without_current.each_with_index do |locale, index|
